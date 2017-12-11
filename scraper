@@ -1,0 +1,26 @@
+import os
+import requests
+from BeautifulSoup import BeautifulSoup
+
+
+
+query = raw_input("Image item: ")
+
+os.system("mkdir "+query)
+os.system("cd "+query)
+
+
+for i in range(0,200,20):
+	
+	url = "http://images.google.com/search?q="+query+"&sout=1&tbm=isch&ei=cpQuWtrOKcnMvgSNtbzICA&start="+str(i)+"&sa=N"
+
+
+	response = requests.get(url)
+	html = response.content
+
+	soup = BeautifulSoup(html)
+
+	
+	
+	for a in soup.findAll('img'):
+		os.system("wget "+a['src'])
